@@ -239,3 +239,5 @@ export function getJSON<U>(url: string): Future<TypeError | SyntaxError, U> {
 function isNamedError(error: unknown): error is { name: string } {
     return Boolean(error && typeof error === "object" && "name" in error);
 }
+
+export type FutureData<D> = Future<Error, D>;
