@@ -46,7 +46,7 @@ function App(props: AppProps) {
         <MuiThemeProvider theme={muiTheme}>
             <OldMuiThemeProvider muiTheme={muiThemeLegacy}>
                 <SnackbarProvider>
-                    <StyledHeaderBar appName="Skeleton App" />
+                    <StyledHeaderBar appName="DataSet Dashboard App" />
 
                     {appConfig.feedback && appContext && (
                         <Feedback
