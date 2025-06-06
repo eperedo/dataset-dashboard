@@ -9,16 +9,35 @@ import styled from "styled-components";
 
 type ProjectSectionProps = {
     section: ProjectSection;
+    highlight?: boolean;
 };
 
 export const ProjectSectionContent = React.memo((props: ProjectSectionProps) => {
-    const { section } = props;
+    const { section, highlight } = props;
+    const [active, setActive] = React.useState(false);
+
+    React.useEffect(() => {
+        if (highlight) {
+            const sectionElement$ = document.getElementById(section.id);
+            if (sectionElement$) {
+                sectionElement$.scrollIntoView({ behavior: "smooth" });
+            }
+            setActive(true);
+            const timeout = setTimeout(() => setActive(false), 2000);
+            return () => clearTimeout(timeout);
+        }
+    }, [section.id, highlight]);
 
     return (
-        <Paper elevation={5} style={{ paddingInline: "1.5em", paddingBlockEnd: "1.5em" }}>
+        <Paper
+            id={section.id}
+            elevation={5}
+            className={active ? "highlight" : ""}
+            style={{ paddingInline: "1.5em", paddingBlockEnd: "1.5em" }}
+        >
             <SectionHeaderContainer>
                 <Typography variant="h4">{section.name}</Typography>
-                <Typography variant="h6">{section.progress}%</Typography>
+                <Typography variant="h6">{section.progress.toFixed(0)}%</Typography>
             </SectionHeaderContainer>
             <SectionItemsContainer>
                 {section.items.map(item => (

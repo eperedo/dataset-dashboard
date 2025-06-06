@@ -39,3 +39,16 @@ li {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.highlight {
+  animation: highlightFade 2s ease-in-out;
+}
+
+@keyframes highlightFade {
+  0% {
+    background-color: yellow;
+  }
+  100% {
+    background-color: inherit;
+  }
+}

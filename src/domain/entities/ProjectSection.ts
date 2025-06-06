@@ -21,4 +21,8 @@ export class ProjectSection extends Struct<ProjectSectionAttrs>() {
         const total = _(itemProgresses).sum();
         return total / count;
     }
+
+    get completed(): boolean {
+        return this.progress === 100;
+    }
 }

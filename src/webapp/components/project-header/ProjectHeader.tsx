@@ -6,6 +6,8 @@ import { ProjectDashboard } from "$/domain/entities/ProjectDashboard";
 import { Id } from "$/domain/entities/Ref";
 import { Maybe } from "$/utils/ts-utils";
 import { PeriodType } from "$/domain/entities/PeriodType";
+import { ModalOrgUnitSelector } from "$/webapp/components/modal-org-unit-selector/ModalOrgUnitSelector";
+import styled from "styled-components";
 
 type ProjectHeaderProps = {
     title: string;
@@ -23,6 +25,10 @@ export const ProjectHeader = React.memo((props: ProjectHeaderProps) => {
         props.onFilterChange({ branchId, period: value });
     };
 
+    const updateFilters = (branchId: Id) => {
+        props.onFilterChange({ branchId, period });
+    };
+
     const periods = React.useMemo(() => {
         return PeriodType.buildPeriods(periodType).map(period => ({
             value: period,
@@ -32,7 +38,7 @@ export const ProjectHeader = React.memo((props: ProjectHeaderProps) => {
 
     return (
         <PageHeader title={title} onBackClick={onBack}>
-            <div className="project-header-filters-container">
+            <ProjectFilterContainer>
                 <Dropdown
                     items={periods}
                     onChange={notifyFilterChange}
@@ -40,7 +46,15 @@ export const ProjectHeader = React.memo((props: ProjectHeaderProps) => {
                     value={period}
                     label={i18n.t("Period")}
                 />
-            </div>
+                <ModalOrgUnitSelector onChange={updateFilters} value={projectDashboard.branchId} />
+            </ProjectFilterContainer>
         </PageHeader>
     );
 });
+
+const ProjectFilterContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin-inline-start: auto;
+`;

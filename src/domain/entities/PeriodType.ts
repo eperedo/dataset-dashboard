@@ -1,6 +1,6 @@
 import { Struct } from "$/domain/entities/generic/Struct";
 import { Maybe } from "$/utils/ts-utils";
-import { format, subDays, subMonths, subYears } from "date-fns";
+import { format, subDays, subMonths, subYears, addYears } from "date-fns";
 
 type PeriodTypeAttrs = {
     id: string;
@@ -14,7 +14,7 @@ export class PeriodType extends Struct<PeriodTypeAttrs>() {
     }
 
     static buildPeriods(code: string): string[] {
-        const now = new Date();
+        const now = addYears(new Date(), 1);
 
         switch (code) {
             case "Yearly":

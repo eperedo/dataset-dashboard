@@ -38,7 +38,7 @@ export const ProjectDashboardContainer = React.memo((props: ProjectDashboardCont
     );
 
     if (!projectDashboard) {
-        return <LinearProgress />;
+        return <LinearProgress style={{ height: "10px" }} />;
     }
 
     return (

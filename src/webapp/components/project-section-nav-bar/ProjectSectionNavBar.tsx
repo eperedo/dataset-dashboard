@@ -2,34 +2,47 @@ import React from "react";
 import { ProjectSection } from "$/domain/entities/ProjectSection";
 
 import { List, ListItem, ListItemIcon, ListItemText, Typography } from "@material-ui/core";
-import InboxIcon from "@material-ui/icons/Inbox";
+import AssignmentLateOutlinedIcon from "@material-ui/icons/AssignmentLateOutlined";
+import AssignmentTurnedInOutlinedIcon from "@material-ui/icons/AssignmentTurnedInOutlined";
 import i18n from "$/utils/i18n";
 import styled from "styled-components";
+import { Id } from "$/domain/entities/Ref";
 
 type ProjectSectionNavBarProps = {
+    onClick: (value: Id) => void;
     sections: ProjectSection[];
 };
 
 export const ProjectSectionNavBar = React.memo((props: ProjectSectionNavBarProps) => {
-    const { sections } = props;
+    const { onClick, sections } = props;
+
+    const notifySection = React.useCallback(
+        (value: Id) => {
+            onClick(value);
+        },
+        [onClick]
+    );
+
     return (
         <ProjectSectionNavBarContainer dataset-testid="project-section-navbar">
             <ProjectSectionHeader>
                 <Typography variant="h5">{i18n.t("Sections")}</Typography>
             </ProjectSectionHeader>
 
-            <div>
+            <StickyList>
                 {sections.map(section => (
-                    <List key={section.id}>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <InboxIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={section.name} />
-                        </ListItem>
-                    </List>
+                    <ListItem key={section.id} button onClick={() => notifySection(section.id)}>
+                        <ListItemIcon>
+                            {section.completed ? (
+                                <AssignmentTurnedInOutlinedIcon />
+                            ) : (
+                                <AssignmentLateOutlinedIcon />
+                            )}
+                        </ListItemIcon>
+                        <ListItemText primary={section.name} />
+                    </ListItem>
                 ))}
-            </div>
+            </StickyList>
         </ProjectSectionNavBarContainer>
     );
 });
@@ -42,4 +55,9 @@ const ProjectSectionNavBarContainer = styled.section`
 
 const ProjectSectionHeader = styled.div`
     padding: 1em;
+`;
+
+const StickyList = styled(List)`
+    position: sticky;
+    top: 0;
 `;

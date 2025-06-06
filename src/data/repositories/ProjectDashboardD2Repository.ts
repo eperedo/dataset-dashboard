@@ -126,16 +126,21 @@ export class ProjectDashboardD2Repository implements ProjectDashboardRepository 
                             const dataElementDetails = dataElementsById.get(dataElement.id);
                             if (!dataElementDetails) return undefined;
 
-                            const totalResponses = dataValues.filter(
-                                dataValue => dataValue.dataElement === dataElementDetails.id
-                            ).length;
+                            const totalResponses = _(dataValues)
+                                .filter(
+                                    dataValue => dataValue.dataElement === dataElementDetails.id
+                                )
+                                .uniqBy(dataElement => dataElement.dataElement)
+                                .value().length;
+
+                            const totalCombinations =
+                                dataElementDetails.categoryCombo.categoryOptionCombos.length;
 
                             return Item.create({
                                 id: dataElementDetails.id,
                                 name: dataElementDetails.displayName,
                                 code: dataElementDetails.code,
-                                possibleResponsesCount:
-                                    dataElementDetails.categoryCombo.categoryOptionCombos.length,
+                                possibleResponsesCount: totalCombinations,
                                 responsesCount: totalResponses,
                             });
                         })

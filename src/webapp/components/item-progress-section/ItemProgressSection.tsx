@@ -39,7 +39,8 @@ const ItemProgressSectionContainer = styled.div`
     align-items: center;
     display: grid;
     justify-content: space-between;
-    grid-template-columns: 0.3fr 0.7fr;
+    grid-template-columns: 0.5fr 0.5fr;
+    column-gap: 2em;
 `;
 
 const ProgressContainer = styled.div`

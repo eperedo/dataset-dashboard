@@ -6,6 +6,7 @@ import { ProjectSectionContent } from "$/webapp/components/project-section-conte
 import { ProjectDetails } from "$/webapp/components/project-details/ProjectDetails";
 import { ProjectSectionNavBar } from "$/webapp/components/project-section-nav-bar/ProjectSectionNavBar";
 import { ProjectHeader } from "$/webapp/components/project-header/ProjectHeader";
+import { Id } from "$/domain/entities/Ref";
 
 type ProjectDashboardPageProps = {
     projectDashboard: ProjectDashboard;
@@ -15,10 +16,15 @@ type ProjectDashboardPageProps = {
 
 export const ProjectDashboardPage = React.memo((props: ProjectDashboardPageProps) => {
     const { onFilterChange, projectDashboard, onBack } = props;
+    const [selectedSectionId, setSelectedSectionId] = React.useState<Id>();
+
+    const showSection = React.useCallback((sectionId: string) => {
+        setSelectedSectionId(sectionId);
+    }, []);
 
     return (
         <Paper className="project-dashboard-container">
-            <ProjectSectionNavBar sections={projectDashboard.sections} />
+            <ProjectSectionNavBar onClick={showSection} sections={projectDashboard.sections} />
             <div style={{ paddingBlock: "1em" }} className="project-section-content">
                 <div className="project-section-content-header">
                     <ProjectHeader
@@ -33,7 +39,11 @@ export const ProjectDashboardPage = React.memo((props: ProjectDashboardPageProps
                 </div>
                 <div className="project-section-content-sections">
                     {projectDashboard.sections.map(section => (
-                        <ProjectSectionContent key={section.id} section={section} />
+                        <ProjectSectionContent
+                            key={section.id}
+                            section={section}
+                            highlight={selectedSectionId === section.id}
+                        />
                     ))}
                 </div>
             </div>
