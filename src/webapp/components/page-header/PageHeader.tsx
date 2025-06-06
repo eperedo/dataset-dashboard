@@ -9,7 +9,7 @@ import i18n from "$/utils/i18n";
 export const PageHeader: React.FC<PageHeaderProps> = React.memo(props => {
     const { variant = "h5", title, onBackClick, helpText, children } = props;
     return (
-        <div>
+        <div style={{ display: "flex", alignItems: "center" }}>
             {!!onBackClick && (
                 <BackButton
                     onClick={onBackClick}
@@ -21,7 +21,7 @@ export const PageHeader: React.FC<PageHeaderProps> = React.memo(props => {
                 </BackButton>
             )}
 
-            <Title variant={variant} gutterBottom data-test={"page-header-title"}>
+            <Title variant={variant} data-test={"page-header-title"}>
                 {title}
             </Title>
 

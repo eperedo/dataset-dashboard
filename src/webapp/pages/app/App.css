@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 html {
     background-color: #f3f3f3;
     font-family: Roboto, Arial, sans-serif;
@@ -10,4 +14,28 @@ body {
 
 li {
     line-height: 1.75;
+}
+
+.project-dashboard-container {
+    display: grid;
+    grid-template-columns: 0.3fr 1fr;
+    column-gap: 1em;
+}
+
+.project-section-content {
+    display: flex;
+    flex-direction: column;
+    padding-inline-end: 1em;
+    row-gap: 1em;
+}
+
+.project-section-content-sections {
+    display: grid;
+    row-gap: 2em;
+}
+
+.multiline-text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

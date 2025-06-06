@@ -1,6 +1,6 @@
 import { HashRouter, Route, Switch } from "react-router-dom";
-import { ExamplePage } from "./example/ExamplePage";
 import { ProjectContainer } from "$/webapp/pages/projects/ProjectContainer";
+import { ProjectDashboardContainer } from "$/webapp/pages/project-dashboard/ProjectDashboardContainer";
 
 export function Router() {
     return (
@@ -8,10 +8,9 @@ export function Router() {
             <Switch>
                 <Route
                     path="/projects/:id/dashboard"
-                    render={({ match }) => <ExamplePage name={match.params.id ?? "Stranger"} />}
+                    render={({ match }) => <ProjectDashboardContainer id={match.params.id} />}
                 />
 
-                {/* Default route */}
                 <Route render={() => <ProjectContainer />} />
             </Switch>
         </HashRouter>
