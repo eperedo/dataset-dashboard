@@ -23,7 +23,7 @@ function getCompositionRoot(repositories: Repositories) {
         users: { getCurrent: new GetCurrentUserUseCase(repositories) },
         projects: { get: new GetProjectsUseCase(repositories.projectRepository) },
         projectDashboard: {
-            getById: new GetProjectDashboardByIdUseCase(repositories.projectDashboardRepository),
+            getBy: new GetProjectDashboardByIdUseCase(repositories.projectDashboardRepository),
         },
     };
 }

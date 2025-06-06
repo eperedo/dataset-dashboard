@@ -12,7 +12,7 @@ export const DonutChart: FC<DonutChartProps> = ({
     percentage,
     size = 240,
     strokeWidth = 12,
-    color = "#4f46e5",
+    color = "#1976d2",
     backgroundColor = "#e5e7eb",
 }) => {
     const radius = (size - strokeWidth) / 2;

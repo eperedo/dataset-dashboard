@@ -8,7 +8,8 @@ type ProjectDashboardAttrs = {
     id: Id;
     name: string;
     code: Maybe<string>;
-    status: string;
+    isCompleted: boolean;
+    isApproved: boolean;
     branchId: Id;
     periodType: string;
     period: string;

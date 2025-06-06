@@ -9,7 +9,7 @@ import i18n from "$/utils/i18n";
 export const PageHeader: React.FC<PageHeaderProps> = React.memo(props => {
     const { variant = "h5", title, onBackClick, helpText, children } = props;
     return (
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <PageHeaderContainer>
             {!!onBackClick && (
                 <BackButton
                     onClick={onBackClick}
@@ -28,7 +28,7 @@ export const PageHeader: React.FC<PageHeaderProps> = React.memo(props => {
             {helpText && <HelpButton text={helpText} />}
 
             {children}
-        </div>
+        </PageHeaderContainer>
     );
 });
 
@@ -69,4 +69,9 @@ const IconButton = styled(MUIIConButton)`
 const BackButton = styled(IconButton)`
     padding-top: 10px;
     margin-bottom: 5px;
+`;
+
+const PageHeaderContainer = styled.div`
+    display: flex;
+    align-items: center;
 `;

@@ -10,17 +10,23 @@ import { ProjectHeader } from "$/webapp/components/project-header/ProjectHeader"
 type ProjectDashboardPageProps = {
     projectDashboard: ProjectDashboard;
     onBack: () => void;
+    onFilterChange: (options: { branchId: string; period: string }) => void;
 };
 
 export const ProjectDashboardPage = React.memo((props: ProjectDashboardPageProps) => {
-    const { projectDashboard, onBack } = props;
+    const { onFilterChange, projectDashboard, onBack } = props;
 
     return (
         <Paper className="project-dashboard-container">
             <ProjectSectionNavBar sections={projectDashboard.sections} />
             <div style={{ paddingBlock: "1em" }} className="project-section-content">
                 <div className="project-section-content-header">
-                    <ProjectHeader title={projectDashboard.name} onBack={onBack} />
+                    <ProjectHeader
+                        title={projectDashboard.name}
+                        onBack={onBack}
+                        onFilterChange={onFilterChange}
+                        projectDashboard={projectDashboard}
+                    />
                 </div>
                 <div className="project-section-details">
                     <ProjectDetails projectDashboard={projectDashboard} />

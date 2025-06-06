@@ -15,7 +15,7 @@ export const ProjectSectionContent = React.memo((props: ProjectSectionProps) => 
     const { section } = props;
 
     return (
-        <Paper elevation={5} style={{ paddingInline: "1.5em" }}>
+        <Paper elevation={5} style={{ paddingInline: "1.5em", paddingBlockEnd: "1.5em" }}>
             <SectionHeaderContainer>
                 <Typography variant="h4">{section.name}</Typography>
                 <Typography variant="h6">{section.progress}%</Typography>

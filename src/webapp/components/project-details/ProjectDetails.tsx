@@ -12,7 +12,7 @@ type ProjectDetailsProps = {
 
 export const ProjectDetails = React.memo((props: ProjectDetailsProps) => {
     const { projectDashboard } = props;
-    const { name, code, status } = projectDashboard;
+    const { name, code, isApproved, isCompleted } = projectDashboard;
 
     return (
         <Paper elevation={5} style={{ padding: "2em" }}>
@@ -25,7 +25,17 @@ export const ProjectDetails = React.memo((props: ProjectDetailsProps) => {
                             {i18n.t("Code: {{code}}", { nsSeparator: false, code: code })}
                         </Typography>
                     )}
-                    <Chip style={{ fontSize: "1em" }} color="primary" label={status} />
+                    <Chip
+                        style={{ fontSize: "1em" }}
+                        color={isCompleted ? "primary" : "secondary"}
+                        label={isCompleted ? i18n.t("Completed") : i18n.t("Incompleted")}
+                    />
+
+                    <Chip
+                        style={{ fontSize: "1em" }}
+                        color={isApproved ? "primary" : "secondary"}
+                        label={isApproved ? i18n.t("Approved") : i18n.t("Unnapproved")}
+                    />
                 </ProjectDetailsLabels>
             </ProjectDetailsContainer>
         </Paper>
