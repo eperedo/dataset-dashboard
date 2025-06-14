@@ -6,6 +6,7 @@ export type ProjectAttrs = {
     id: Id;
     name: string;
     code: Maybe<string>;
+    mainBranchId: Id;
 };
 
 export class Project extends Struct<ProjectAttrs>() {}

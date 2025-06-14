@@ -7,15 +7,17 @@ import { ProjectDetails } from "$/webapp/components/project-details/ProjectDetai
 import { ProjectSectionNavBar } from "$/webapp/components/project-section-nav-bar/ProjectSectionNavBar";
 import { ProjectHeader } from "$/webapp/components/project-header/ProjectHeader";
 import { Id } from "$/domain/entities/Ref";
+import { Project } from "$/domain/entities/Project";
 
 type ProjectDashboardPageProps = {
     projectDashboard: ProjectDashboard;
+    project: Project;
     onBack: () => void;
     onFilterChange: (options: { branchId: string; period: string }) => void;
 };
 
 export const ProjectDashboardPage = React.memo((props: ProjectDashboardPageProps) => {
-    const { onFilterChange, projectDashboard, onBack } = props;
+    const { onFilterChange, projectDashboard, onBack, project } = props;
     const [selectedSectionId, setSelectedSectionId] = React.useState<Id>();
 
     const showSection = React.useCallback((sectionId: string) => {
@@ -32,6 +34,7 @@ export const ProjectDashboardPage = React.memo((props: ProjectDashboardPageProps
                         onBack={onBack}
                         onFilterChange={onFilterChange}
                         projectDashboard={projectDashboard}
+                        project={project}
                     />
                 </div>
                 <div className="project-section-details">

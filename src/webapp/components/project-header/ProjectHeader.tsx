@@ -8,16 +8,18 @@ import { Maybe } from "$/utils/ts-utils";
 import { PeriodType } from "$/domain/entities/PeriodType";
 import { ModalOrgUnitSelector } from "$/webapp/components/modal-org-unit-selector/ModalOrgUnitSelector";
 import styled from "styled-components";
+import { Project } from "$/domain/entities/Project";
 
 type ProjectHeaderProps = {
     title: string;
     onBack: () => void;
+    project: Project;
     projectDashboard: ProjectDashboard;
     onFilterChange: (options: { branchId: Id; period: string }) => void;
 };
 
 export const ProjectHeader = React.memo((props: ProjectHeaderProps) => {
-    const { title, onBack, projectDashboard } = props;
+    const { project, title, onBack, projectDashboard } = props;
     const { period, branchId, periodType } = projectDashboard;
 
     const notifyFilterChange = (value: Maybe<string>) => {
@@ -46,7 +48,11 @@ export const ProjectHeader = React.memo((props: ProjectHeaderProps) => {
                     value={period}
                     label={i18n.t("Period")}
                 />
-                <ModalOrgUnitSelector onChange={updateFilters} value={projectDashboard.branchId} />
+                <ModalOrgUnitSelector
+                    allowedIds={[project.mainBranchId]}
+                    onChange={updateFilters}
+                    value={projectDashboard.branchId}
+                />
             </ProjectFilterContainer>
         </PageHeader>
     );

@@ -16,12 +16,7 @@ type ProjectSectionNavBarProps = {
 export const ProjectSectionNavBar = React.memo((props: ProjectSectionNavBarProps) => {
     const { onClick, sections } = props;
 
-    const notifySection = React.useCallback(
-        (value: Id) => {
-            onClick(value);
-        },
-        [onClick]
-    );
+    const notifySection = React.useCallback((value: Id) => onClick(value), [onClick]);
 
     return (
         <ProjectSectionNavBarContainer dataset-testid="project-section-navbar">

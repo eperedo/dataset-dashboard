@@ -97,13 +97,23 @@ export class ProjectDashboardD2Repository implements ProjectDashboardRepository 
 
         const sections =
             d2DataSet.sections.length > 0
-                ? d2DataSet.sections
+                ? _(d2DataSet.sections)
+                      .map(section => ({
+                          ...section,
+                          dataElements: _(section.dataElements)
+                              .orderBy([[dataElement => dataElement.id, "asc"]])
+                              .value(),
+                      }))
+                      .value()
                 : [
                       {
                           id: "default-section",
                           displayName: "Default Section",
                           code: "default-section",
-                          dataElements: d2DataSet.dataSetElements.map(de => de.dataElement),
+                          dataElements: _(d2DataSet.dataSetElements)
+                              .map(dataElement => dataElement.dataElement)
+                              .orderBy([[dataElement => dataElement.id, "asc"]])
+                              .value(),
                       },
                   ];
 
@@ -130,7 +140,10 @@ export class ProjectDashboardD2Repository implements ProjectDashboardRepository 
                                 .filter(
                                     dataValue => dataValue.dataElement === dataElementDetails.id
                                 )
-                                .uniqBy(dataElement => dataElement.dataElement)
+                                .uniqBy(
+                                    dataElement =>
+                                        dataElement.dataElement && dataElement.categoryOptionCombo
+                                )
                                 .value().length;
 
                             const totalCombinations =
@@ -144,6 +157,7 @@ export class ProjectDashboardD2Repository implements ProjectDashboardRepository 
                                 responsesCount: totalResponses,
                             });
                         })
+                        .orderBy([[item => item.name, "asc"]])
                         .value(),
                 });
             }),

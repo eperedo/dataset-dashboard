@@ -7,12 +7,13 @@ import { Id } from "$/domain/entities/Ref";
 import _ from "$/domain/entities/generic/Collection";
 
 export type ModalOrgUnitSelectorProps = {
+    allowedIds: Id[];
     value?: string;
     onChange: (value: Id) => void;
 };
 
 export const ModalOrgUnitSelector = React.memo((props: ModalOrgUnitSelectorProps) => {
-    const { onChange, value } = props;
+    const { allowedIds, onChange, value } = props;
     const { api } = useAppContext();
 
     const [openDialog, setOpenDialog] = React.useState(false);
@@ -63,6 +64,7 @@ export const ModalOrgUnitSelector = React.memo((props: ModalOrgUnitSelectorProps
                     singleSelection
                     onChange={updateOrgUnit}
                     controls={orgUnitControls}
+                    rootIds={allowedIds}
                 />
                 <DialogActions>
                     <Button variant="contained" color="primary" onClick={updateValue}>

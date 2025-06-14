@@ -2,6 +2,7 @@ import { ProjectD2Repository } from "$/data/repositories/ProjectD2Repository";
 import { ProjectDashboardD2Repository } from "$/data/repositories/ProjectDashboardD2Repository";
 import { ProjectDashboardRepository } from "$/domain/repositories/ProjectDashboard";
 import { ProjectRepository } from "$/domain/repositories/ProjectRepository";
+import { GetProjectByIdUseCase } from "$/domain/usecases/GetProjectByIdUseCase";
 import { GetProjectDashboardByIdUseCase } from "$/domain/usecases/GetProjectDashboardByIdUseCase";
 import { GetProjectsUseCase } from "$/domain/usecases/GetProjectsUseCase";
 import { UserD2Repository } from "./data/repositories/UserD2Repository";
@@ -21,7 +22,10 @@ type Repositories = {
 function getCompositionRoot(repositories: Repositories) {
     return {
         users: { getCurrent: new GetCurrentUserUseCase(repositories) },
-        projects: { get: new GetProjectsUseCase(repositories.projectRepository) },
+        projects: {
+            get: new GetProjectsUseCase(repositories.projectRepository),
+            getById: new GetProjectByIdUseCase(repositories.projectRepository),
+        },
         projectDashboard: {
             getBy: new GetProjectDashboardByIdUseCase(repositories.projectDashboardRepository),
         },
